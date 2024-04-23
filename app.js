@@ -2,12 +2,19 @@ const express = require('express');
 const dotenv = require('dotenv');
 const fs = require('fs');
 const path = require('path');
+const session = require('express-session');
 
 dotenv.config();
 
 const docusign = require('docusign-esign');
 
 const app = express();
+
+app.use(session({
+    secret: 'd3asdasds3ad',
+    resave: true,
+    saveUninitialized: true,
+}))
 
 app.get('/', async (req, res) => {
     let dsApiClient = new docusign.ApiClient();
@@ -21,7 +28,8 @@ app.get('/', async (req, res) => {
         3600
     );
 
-    console.log(results.body)
+    req.session.access_token = results.body.access_token;
+    req.session.expires_at = Date.now() + (results.body.expires_in - 60) * 1000;
     res.sendFile(path.join(__dirname, 'index.html'))
 })
 
