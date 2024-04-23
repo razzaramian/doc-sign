@@ -6,6 +6,25 @@
     <title>Document</title>
 </head>
 <body>
-    some text
+    <form action="/form" method="post">
+        <label for="name">Name:</label>
+        <input id="name" name="name" type="text"/>
+
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email"/>
+
+        <label for="company">Company Name:</label>
+        <input id="company" for="company" type="text" />
+
+        <input type="submit">
+    </form>
 </body>
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        gap: 14px;
+    }
+</style>
 </html>
