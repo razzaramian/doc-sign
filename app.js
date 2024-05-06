@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'd3asd0429fds2s3ad',
+    secret: process.env.SECRET,
     resave: true,
     saveUninitialized: true,
 }))
@@ -107,5 +107,3 @@ app.get("/success", (req, res) => {
 app.listen(8001, () => {
     console.log("server has started", 8001);
 });
-
-//  https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id=6e028817-4db0-4e52-ab85-0926eaca1792&redirect_uri=http://localhost:8001
