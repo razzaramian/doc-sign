@@ -36,7 +36,7 @@ app.post('/form', async (req, res) => {
     res.redirect(results.url);
 })
 
-function getEnvelopesApi(req) {
+const getEnvelopesApi = (req) => {
     let dsApiClient = new docusign.ApiClient();
     dsApiClient.setBasePath(process.env.BASE_PATH);
     dsApiClient.addDefaultHeader('Authorization', 'Bearer ' + req.session.access_token);
@@ -44,7 +44,7 @@ function getEnvelopesApi(req) {
     return new docusign.EnvelopesApi(dsApiClient)
 }
 
-function makeEnvelope(name, email) {
+const makeEnvelope = (name, email) => {
     const env = new docusign.EnvelopeDefinition();
     env.templateId = process.env.TEMPLATE_ID;
 
@@ -62,7 +62,7 @@ function makeEnvelope(name, email) {
     return env;
 }
 
-async function checkToken(req) {
+const checkToken = async (req) => {
     if (req.session.access_token && Date.now() < req.session.expires_at) {
         console.log('token expires')
     } else {
@@ -82,7 +82,7 @@ async function checkToken(req) {
     }
 }
 
-function makeRecipientViewRequest(name, email) {
+const makeRecipientViewRequest = (name, email) => {
     let viewRequest = new docusign.RecipientViewRequest();
 
     viewRequest.returnUrl = "http://localhost:8001/success";
